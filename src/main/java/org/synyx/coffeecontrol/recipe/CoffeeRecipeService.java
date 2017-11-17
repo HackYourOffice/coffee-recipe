@@ -9,6 +9,8 @@ import org.synyx.coffeecontrol.make.persistence.Token;
 import org.synyx.coffeecontrol.make.persistence.TokenRepository;
 import org.synyx.coffeecontrol.recipe.web.CoffeeRecipeDto;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -37,6 +39,15 @@ public class CoffeeRecipeService implements Loggable {
         } else {
             return Optional.empty();
         }
+    }
+
+
+    public List<CoffeeRecipe> getAllCoffeeRecipes() {
+
+        List<CoffeeRecipe> coffeeRecipes = new ArrayList<>();
+        coffeeRecipeRepository.findAll().forEach(coffeeRecipes::add);
+
+        return coffeeRecipes;
     }
 
 

@@ -5,7 +5,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.synyx.coffeecontrol.make.persistence.CoffeeRecipe;
 import org.synyx.coffeecontrol.recipe.CoffeeRecipeService;
+
+import java.util.List;
 
 
 @RestController
@@ -24,6 +27,13 @@ public class RecipeController {
         if (coffeeRecipeDto != null) {
             coffeeRecipeService.saveRecipe(CoffeeRecipeService.toDto(coffeeRecipeDto));
         }
+    }
+
+
+    @GetMapping("/recipe")
+    public List<CoffeeRecipe> allRecipes() {
+
+        return coffeeRecipeService.getAllCoffeeRecipes();
     }
 
 
