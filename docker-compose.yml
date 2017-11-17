@@ -1,0 +1,11 @@
+version: '2'
+services:
+  'mariadb':
+    image: mariadb
+    ports:
+     - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_USER: coffee-recipe
+      MYSQL_PASSWORD: coffee
+      MYSQL_DATABASE: coffee-recipe
