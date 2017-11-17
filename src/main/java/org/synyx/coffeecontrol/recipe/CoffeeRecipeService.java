@@ -1,4 +1,4 @@
-package org.synyx.coffeecontrol.make;
+package org.synyx.coffeecontrol.recipe;
 
 import org.springframework.stereotype.Component;
 
@@ -30,7 +30,7 @@ public class CoffeeRecipeService {
         Optional<Token> optionalToken = tokenRepository.findByToken(token);
 
         if (optionalToken.isPresent()) {
-            return Optional.of(new CoffeeRecipe("foo", "bar"));
+            return Optional.of(optionalToken.get().getCoffeeRecipe());
         } else {
             return Optional.empty();
         }
@@ -47,7 +47,7 @@ public class CoffeeRecipeService {
     }
 
 
-    public static final CoffeeRecipe toDto(CoffeeRecipeDto coffeeRecipeDto) {
+    public static CoffeeRecipe toDto(CoffeeRecipeDto coffeeRecipeDto) {
 
         final CoffeeRecipe coffeeRecipe = new CoffeeRecipe(coffeeRecipeDto.command, coffeeRecipeDto.name);
 

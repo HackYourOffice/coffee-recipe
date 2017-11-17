@@ -16,7 +16,7 @@ import java.nio.charset.Charset;
 @Component
 public class CommandSender {
 
-    public void sendCommand(String command) {
+    public void sendCommand(String command, String machineId) {
 
         final MqttClient mqttClient = mqttConnect();
 
@@ -26,22 +26,27 @@ public class CommandSender {
 
                 @Override
                 public void connectionLost(Throwable throwable) {
+
+                    System.err.println("lost connection to mqtt broker");
                 }
 
 
                 @Override
                 public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
+
+                    System.out.println("message arrived at mqtt broker");
                 }
 
 
                 @Override
                 public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
+
+                    System.out.println("message delivery complete");
                 }
             });
 
         try {
-            // mqttClient.publish("coffee/command/a020a600f704", message);
-            mqttClient.publish("coffee/command/joo", message);
+            mqttClient.publish(String.format("coffee/command/%s", machineId), message);
         } catch (MqttException e) {
             throw new RuntimeException(e);
         }
