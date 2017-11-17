@@ -9,7 +9,6 @@
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true" />
             </column>
-
             <column name="token" type="VARCHAR(255)">
                 <constraints nullable="false" />
             </column>
@@ -22,6 +21,10 @@
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true" />
             </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+
 
             <column name="command" type="VARCHAR(255)">
                 <constraints nullable="false" />

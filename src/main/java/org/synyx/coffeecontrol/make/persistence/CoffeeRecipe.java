@@ -14,6 +14,31 @@ public class CoffeeRecipe {
 
     private String command;
 
+    private String name;
+
+    // for spring data jpa
+    public CoffeeRecipe() {
+    }
+
+
+    public CoffeeRecipe(String command, String name) {
+
+        this.command = command;
+        this.name = name;
+    }
+
+    public String getName() {
+
+        return name;
+    }
+
+
+    public void setName(String name) {
+
+        this.name = name;
+    }
+
+
     public Long getId() {
 
         return id;

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.synyx.coffeecontrol.make.web.mqtt.CommandSender;
 
 
-@RestController("/make")
+@RestController
 public class MakeController {
 
     private final CommandSender commandSender;
@@ -17,7 +17,7 @@ public class MakeController {
         this.commandSender = commandSender;
     }
 
-    @PostMapping
+    @PostMapping("/make")
     public void makeCommand(@RequestBody String command) {
 
         commandSender.sendCommand("penis");

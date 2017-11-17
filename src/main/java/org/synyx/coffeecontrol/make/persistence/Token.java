@@ -1,6 +1,7 @@
 package org.synyx.coffeecontrol.make.persistence;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -10,6 +11,7 @@ import javax.persistence.OneToOne;
 public class Token {
 
     @Id
+    @GeneratedValue
     private Long id;
 
     private String token;
@@ -17,6 +19,18 @@ public class Token {
     @OneToOne
     @JoinColumn(name = "coffee_recipe_id")
     private CoffeeRecipe coffeeRecipe;
+
+    public CoffeeRecipe getCoffeeRecipe() {
+
+        return coffeeRecipe;
+    }
+
+
+    public void setCoffeeRecipe(CoffeeRecipe coffeeRecipe) {
+
+        this.coffeeRecipe = coffeeRecipe;
+    }
+
 
     public Long getId() {
 
@@ -39,17 +53,5 @@ public class Token {
     public void setToken(String token) {
 
         this.token = token;
-    }
-
-
-    public CoffeeRecipe getCoffeeRecipe() {
-
-        return coffeeRecipe;
-    }
-
-
-    public void setCoffeeRecipe(CoffeeRecipe coffeeRecipe) {
-
-        this.coffeeRecipe = coffeeRecipe;
     }
 }
