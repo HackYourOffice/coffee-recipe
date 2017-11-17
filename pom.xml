@@ -25,6 +25,12 @@
 	</parent>
 
 	<properties>
+        <!--
+            for some reasons the docker maven plugin cannot access the maven build
+            properties but only custom properties. thus the project.build.finalName
+            property is copied here to be used in the Dockerfile during docker build.
+         -->
+        <docker.finalName>${project.build.finalName}</docker.finalName>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
@@ -83,6 +89,28 @@
 
 	<build>
 		<plugins>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.21.0</version>
+                <configuration>
+                    <images>
+                        <image>
+                            <name>container-registry.synyx.de/coffee-recipe</name>
+                            <build>
+                                <dockerFileDir>${project.basedir}/docker/coffee-recipe</dockerFileDir>
+                                <assembly>
+                                    <descriptorRef>artifact</descriptorRef>
+                                </assembly>
+                                <tags>
+                                    <tag>${project.version}</tag>
+                                    <tag>latest</tag>
+                                </tags>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
+            </plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
