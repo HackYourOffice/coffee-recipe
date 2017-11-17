@@ -2,6 +2,7 @@ package org.synyx.coffeecontrol.recipe;
 
 import org.springframework.stereotype.Component;
 
+import org.synyx.coffeecontrol.Loggable;
 import org.synyx.coffeecontrol.make.persistence.CoffeeRecipe;
 import org.synyx.coffeecontrol.make.persistence.CoffeeRecipeRepository;
 import org.synyx.coffeecontrol.make.persistence.Token;
@@ -14,7 +15,7 @@ import javax.transaction.Transactional;
 
 
 @Component
-public class CoffeeRecipeService {
+public class CoffeeRecipeService implements Loggable {
 
     private final TokenRepository tokenRepository;
     private final CoffeeRecipeRepository coffeeRecipeRepository;
@@ -30,6 +31,8 @@ public class CoffeeRecipeService {
         Optional<Token> optionalToken = tokenRepository.findByToken(token);
 
         if (optionalToken.isPresent()) {
+            logger().debug("found token {}", token);
+
             return Optional.of(optionalToken.get().getCoffeeRecipe());
         } else {
             return Optional.empty();
@@ -59,6 +62,7 @@ public class CoffeeRecipeService {
     public void resetRecipes() {
 
         coffeeRecipeRepository.deleteAll();
+        logger().info("deleted all recipe entries.");
     }
 
 
@@ -69,5 +73,6 @@ public class CoffeeRecipeService {
         coffeeRecipeRepository.save(new CoffeeRecipe("FA:04", "Doppelter Espresso"));
         coffeeRecipeRepository.save(new CoffeeRecipe("FA:05", "Einfacher Kaffee"));
         coffeeRecipeRepository.save(new CoffeeRecipe("FA:06", "Doppelter Kaffee"));
+        logger().info("created {} recipe entries", coffeeRecipeRepository.count());
     }
 }
