@@ -9,3 +9,7 @@ services:
       MYSQL_USER: coffee-recipe
       MYSQL_PASSWORD: coffee
       MYSQL_DATABASE: coffee-recipe
+  'mqtt':
+    image: toke/mosquitto
+    ports:
+     - "1813:1813"
