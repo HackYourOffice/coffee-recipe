@@ -13,3 +13,13 @@ services:
     image: toke/mosquitto
     ports:
      - "1813:1813"
+  'coffee-recipe':
+    image: container-registry.synyx.de/coffee-recipe
+    volumes:
+      - ./docker/coffee-recipe/application.properties:/application.properties
+    links:
+      - mqtt:mqtt.synyx.coffee
+      - mariadb:mariadb.synyx.coffee
+    depends_on:
+      - mqtt
+      - mariadb
